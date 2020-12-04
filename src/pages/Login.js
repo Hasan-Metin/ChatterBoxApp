@@ -23,10 +23,10 @@ const Login = (props) => {
     if (email && password) {
       auth()
         .signInWithEmailAndPassword(email, password)
-        .then(() => Alert.alert('başarılı'))
+        .then(() => props.navigation.navigate('Timeline'))
         .catch((err) => Alert.alert('CHATTERBOX', resolveAuthError(err.code)));
     } else {
-      Alert.alert('CHATTERBOX', "Type your email and password'");
+      Alert.alert('CHATTERBOX', "Type valid email and password'");
     }
   }
 
@@ -47,8 +47,11 @@ const Login = (props) => {
                 placeholder: 'Type your email...',
                 keyboardType: 'email-address',
               }}
-              onEndEdit={(value) => {
-                validateEmail(value) ? setEmail(value) : setEmailValid(false);
+              onType={(value) => {
+                setEmail(value);
+              }}
+              onEndEdit={() => {
+                validateEmail(email) ? null : setEmailValid(false);
               }}
               isFocused={(value) => {
                 value ? setEmailValid(true) : null;
@@ -73,7 +76,12 @@ const Login = (props) => {
             <Button
               title="Sign In"
               onPress={() => {
-                login();
+                isEmailValid
+                  ? login()
+                  : Alert.alert(
+                      'CHATTERBOX',
+                      "Type a valid email and password'",
+                    );
               }}
             />
             <Button

@@ -1,22 +1,28 @@
 export function resolveAuthError(code) {
   switch (code) {
     case 'auth/wrong-password':
-      return 'Invalid Password';
+      return 'Invalid Password!';
 
     case 'auth/user-not-found':
-      return 'User Not Found';
+      return 'User Not Found!';
 
     case 'auth/invalid-email':
-      return 'Invalid email';
+      return 'Invalid email!';
 
     case 'auth/user-disabled':
-      return 'This User Disabled by Admin';
+      return 'This User Disabled by Admin!';
 
     case 'auth/user-not-found':
-      return 'User Not Found';
+      return 'User Not Found!';
 
-    case 'auth/user-not-found':
-      return 'User Not Found';
+    case 'auth/email-already-in-use':
+      return 'This mail is already in use!';
+
+    case 'auth/operation-not-allowed':
+      return 'Operation Not Allowed!';
+
+    case 'auth/weak-password':
+      return 'Weak Password!';
 
     default:
       return 'An Unknown Error Occurred';

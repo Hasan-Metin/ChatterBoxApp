@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {
   SafeAreaView,
-  Dimensions,
   View,
   Text,
   Image,
@@ -24,8 +23,8 @@ const Sign = (props) => {
   function sign() {
     if (email && password) {
       auth()
-        .signInWithEmailAndPassword(email, password)
-        .then(() => Alert.alert('başarılı'))
+        .createUserWithEmailAndPassword(email, password)
+        .then(() => props.navigation.navigate('Timeline'))
         .catch((err) => Alert.alert('CHATTERBOX', resolveAuthError(err.code)));
     } else {
       Alert.alert('CHATTERBOX', "Type your email and password'");
@@ -49,8 +48,11 @@ const Sign = (props) => {
                 placeholder: 'Type your email...',
                 keyboardType: 'email-address',
               }}
-              onEndEdit={(value) => {
-                validateEmail(value) ? setEmail(value) : setEmailValid(false);
+              onType={(value) => {
+                setEmail(value);
+              }}
+              onEndEdit={() => {
+                validateEmail(email) ? null : setEmailValid(false);
               }}
               isFocused={(value) => {
                 value ? setEmailValid(true) : null;
@@ -89,7 +91,12 @@ const Sign = (props) => {
             <Button
               title="Create account"
               onPress={() => {
-                sign();
+                isEmailValid & isPassworsMatch
+                  ? sign()
+                  : Alert.alert(
+                      'CHATTERBOX',
+                      "Type a valid email and password'",
+                    );
               }}
             />
             <Button
