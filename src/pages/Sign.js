@@ -9,16 +9,25 @@ import {
   KeyboardAvoidingView,
   Alert,
 } from 'react-native';
+import auth from '@react-native-firebase/auth';
 
 import {authStyle} from './styles';
 import {Input, Button} from '../components';
+import {resolveAuthError} from '../functions';
 
 const Sign = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   function sign() {
-    Alert.alert(email + ' ' + password);
+    if (email && password) {
+      auth()
+        .signInWithEmailAndPassword(email, password)
+        .then(() => Alert.alert('başarılı'))
+        .catch((err) => Alert.alert('CHATTERBOX', resolveAuthError(err.code)));
+    } else {
+      Alert.alert('CHATTERBOX', "Type your email and password'");
+    }
   }
 
   return (

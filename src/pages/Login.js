@@ -8,10 +8,10 @@ import {
   KeyboardAvoidingView,
   Alert,
 } from 'react-native';
+import auth from '@react-native-firebase/auth';
 
 import {authStyle} from './styles';
 import {Input, Button} from '../components';
-import auth from '@react-native-firebase/auth';
 import {resolveAuthError} from '../functions';
 
 const Login = (props) => {
