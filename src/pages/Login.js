@@ -18,9 +18,7 @@ const Login = (props) => {
     <SafeAreaView style={{flex: 1}}>
       <KeyboardAvoidingView style={{flex: 1, backgroundColor: '#cfd8dc'}}>
         <ScrollView contentContainerStyle={{flex: 1}}>
-          {
-            // ...
-          }
+          <Text>Login</Text>
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
