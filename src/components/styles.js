@@ -3,37 +3,43 @@ import {StyleSheet, Dimensions} from 'react-native';
 export const input = StyleSheet.create({
   container: {
     backgroundColor: '#eceff1',
-    margin: 10,
-    borderRadius: 5,
+    marginHorizontal: 20,
+    marginVertical: 10,
+    borderRadius: 7,
     paddingHorizontal: 10,
+    padding: 5,
   },
-  textInput: {},
+  textInput: {fontSize: 20},
 });
 
 export const button = StyleSheet.create({
   container: {
     backgroundColor: 'purple',
-    margin: 10,
+    marginHorizontal: 20,
+    marginVertical: 5,
     padding: 10,
     alignItems: 'center',
-    borderRadius: 5,
+    borderRadius: 7,
   },
   title: {
     color: 'white',
     fontWeight: 'bold',
+    fontSize: 20,
   },
 });
 
 export const button_outline = StyleSheet.create({
   container: {
-    margin: 10,
+    marginHorizontal: 20,
+    marginVertical: 5,
     padding: 10,
     alignItems: 'center',
-    borderRadius: 5,
+    borderRadius: 7,
   },
   title: {
     color: 'purple',
     fontWeight: 'bold',
+    fontSize: 20,
   },
 });
 
