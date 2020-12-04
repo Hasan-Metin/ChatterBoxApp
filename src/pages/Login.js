@@ -12,11 +12,12 @@ import auth from '@react-native-firebase/auth';
 
 import {authStyle} from './styles';
 import {Input, Button} from '../components';
-import {resolveAuthError} from '../functions';
+import {resolveAuthError, validateEmail} from '../functions';
 
 const Login = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isEmailValid, setEmailValid] = useState(true);
 
   function login() {
     if (email && password) {
@@ -46,10 +47,20 @@ const Login = (props) => {
                 placeholder: 'Type your email...',
                 keyboardType: 'email-address',
               }}
-              onType={(value) => {
-                setEmail(value);
+              onEndEdit={(value) => {
+                validateEmail(value) ? setEmail(value) : setEmailValid(false);
+              }}
+              isFocused={(value) => {
+                value ? setEmailValid(true) : null;
               }}
             />
+            {!isEmailValid && (
+              <View style={authStyle.pswCheck}>
+                <Text style={authStyle.pswCheck}>
+                  Not a valid email address!
+                </Text>
+              </View>
+            )}
             <Input
               inputProps={{
                 placeholder: 'Type your password...',

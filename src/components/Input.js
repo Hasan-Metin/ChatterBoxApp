@@ -10,6 +10,8 @@ const Input = (props) => {
         style={input.textInput}
         {...props.inputProps}
         onChangeText={props.onType}
+        onEndEditing={props.onEndEdit}
+        onFocus={props.isFocused}
       />
     </View>
   );

@@ -13,11 +13,13 @@ import auth from '@react-native-firebase/auth';
 
 import {authStyle} from './styles';
 import {Input, Button} from '../components';
-import {resolveAuthError} from '../functions';
+import {resolveAuthError, matchPassword, validateEmail} from '../functions';
 
 const Sign = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isPassworsMatch, setPasswordMatch] = useState(true);
+  const [isEmailValid, setEmailValid] = useState(true);
 
   function sign() {
     if (email && password) {
@@ -47,10 +49,20 @@ const Sign = (props) => {
                 placeholder: 'Type your email...',
                 keyboardType: 'email-address',
               }}
-              onType={(value) => {
-                setEmail(value);
+              onEndEdit={(value) => {
+                validateEmail(value) ? setEmail(value) : setEmailValid(false);
+              }}
+              isFocused={(value) => {
+                value ? setEmailValid(true) : null;
               }}
             />
+            {!isEmailValid && (
+              <View style={authStyle.pswCheck}>
+                <Text style={authStyle.pswCheck}>
+                  Not a valid email address!
+                </Text>
+              </View>
+            )}
             <Input
               inputProps={{
                 placeholder: 'Type your password...',
@@ -65,7 +77,15 @@ const Sign = (props) => {
                 placeholder: 'Type your password again...',
                 secureTextEntry: true,
               }}
+              onType={(value) => {
+                setPasswordMatch(() => matchPassword(password, value));
+              }}
             />
+            {!isPassworsMatch && (
+              <View style={authStyle.pswCheck}>
+                <Text style={authStyle.pswCheck}>Not Matching Passwords</Text>
+              </View>
+            )}
             <Button
               title="Create account"
               onPress={() => {

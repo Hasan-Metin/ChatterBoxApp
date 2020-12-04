@@ -15,6 +15,10 @@ export const authStyle = StyleSheet.create({
     fontSize: 35,
     fontWeight: 'bold',
   },
+  pswCheck: {
+    paddingLeft: 15,
+    color: 'tomato',
+  },
 });
 
 export const timelinePage = StyleSheet.create({
