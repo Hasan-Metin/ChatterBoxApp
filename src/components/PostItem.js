@@ -5,6 +5,7 @@ import {Text, View} from 'react-native';
 import {postitem} from './styles';
 
 const PostItem = (props) => {
+
   return (
     <View style={postitem.container}>
       {

@@ -33,7 +33,7 @@ const Login = (props) => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <KeyboardAvoidingView style={{flex: 1, backgroundColor: '#cfd8dc'}}>
-        <ScrollView contentContainerStyle={{flex: 1}}>
+        <ScrollView contentContainerStyle={{flex: 1}} bounces={false}>
           <View style={authStyle.container}>
             <Image
               source={require('../assets/logo.png')}
