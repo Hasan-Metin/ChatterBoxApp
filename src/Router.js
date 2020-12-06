@@ -13,7 +13,7 @@ const Router = () => {
     auth().onAuthStateChanged((user) => {
       setSession(user);
     });
-  });
+  }, []);
 
   return (
     <NavigationContainer>

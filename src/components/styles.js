@@ -71,8 +71,8 @@ export const post_input = StyleSheet.create({
   container: {
     width: Dimensions.get('window').width * 0.9,
     alignSelf: 'center',
-    bottom: 10,
     position: 'absolute',
+    bottom: 10,
     backgroundColor: '#e0e0e0',
     borderRadius: 5,
     padding: 5,

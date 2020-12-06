@@ -7,12 +7,14 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Alert,
+  Platform,
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 
 import {authStyle} from './styles';
 import {Input, Button} from '../components';
 import {resolveAuthError, matchPassword, validateEmail} from '../functions';
+const {OS} = Platform;
 
 const Sign = (props) => {
   const [email, setEmail] = useState('');
@@ -33,7 +35,9 @@ const Sign = (props) => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <KeyboardAvoidingView style={{flex: 1, backgroundColor: '#cfd8dc'}}>
+      <KeyboardAvoidingView
+        style={{flex: 1, backgroundColor: '#cfd8dc'}}
+        behavior={OS === 'ios' ? 'padding' : 'height'}>
         <ScrollView contentContainerStyle={{flex: 1}} bounces={false}>
           <View style={authStyle.container}>
             <Image
