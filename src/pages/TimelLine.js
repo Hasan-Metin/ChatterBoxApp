@@ -18,15 +18,26 @@ const user = auth().currentUser;
 const Timeline = () => {
   const [topicModalFlag, setTopicModalFlag] = useState(true);
   const [selectedTopic, setSelectedTopic] = useState('');
-  const [data, setData] = useState([]);
+  const [postList, setPostList] = useState([]);
 
   const selectingTopic = (topic) => {
     setSelectedTopic(topic);
     setTopicModalFlag(false);
     database()
-      .ref()
+      .ref(`${topic}/`)
       .on('value', (snapshot) => {
-        console.log(snapshot.val());
+        const data = snapshot.val();
+        if (data) {
+          const formattedData = Object.keys(data).map((key) => ({
+            ...data[key],
+          }));
+          formattedData.sort((a, b) => {
+            return new Date(a.time) - new Date(b.time);
+          });
+          setPostList(formattedData);
+        } else {
+          setPostList([]);
+        }
       });
   };
 
@@ -39,16 +50,27 @@ const Timeline = () => {
     database().ref(`${selectedTopic}/`).push(postObject);
   };
 
+  const renderPosts = ({item}) => <PostItem post={item} />;
+  console.log(user.email);
+
   return (
     <SafeAreaView style={timelinePage.container}>
       <KeyboardAvoidingView style={timelinePage.container}>
         <View style={timelinePage.container}>
           <Header
             title={selectedTopic}
-            onLogOut={() => null}
+            onLogOut={() => {
+              auth().signOut();
+            }}
             onTopicModalSelect={() => setTopicModalFlag(true)}
           />
-          <FlatList data={[]} renderItem={() => null} bounces={false} />
+          <FlatList
+            data={postList}
+            renderItem={renderPosts}
+            bounces={false}
+            keyExtractor={(_, index) => index.toString()}
+            ListEmptyComponent={()=><Text>There is no previous chat!</Text>}
+          />
           <PostInput onSendPost={sendingPost} />
           <TopicSelectModal
             visibility={topicModalFlag}
